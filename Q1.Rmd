@@ -1,0 +1,51 @@
+---
+title: "ShopifyDataChallenge"
+author: "Ammar Sallam"
+date: "19/01/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Getting the data
+
+
+```{r data}
+DataSet = read.csv("DataSet.csv", header = TRUE);
+```
+
+## Calculate the average order value (AOV)
+
+```{r AOV}
+AOV = mean(DataSet$order_amount)
+print(AOV)
+```
+
+AOV of the data seems to be correct, but this doesn't account for the amounts of items purchased, a better metric for this purpose could be the average item value (AIV)
+
+## Calculate the average item value
+```{r AIV}
+#create a new column in the data set for the AIV for each order
+DataSet$order_AIV = DataSet$order_amount/DataSet$total_items
+#get the average of that new column
+AIV = mean(DataSet$order_AIV)
+print(AIV)
+```
+
+Another important metric would be the amount of orders for each shop to see which shops are the most popular
+
+## Calculate the amount of items bought from each shop
+```{r shopItems}
+#create a vector of length 100 with each index representing the shop number
+shopFreq = numeric(100)
+counter = 1
+for (i in DataSet$shop_id){
+  shopFreq[i] = shopFreq[i] + DataSet$total_items[counter]
+  counter = counter + 1
+}
+print(shopFreq)
+```
+We can see from this vector that shop 42 is really popular with 34063 items bought from there. For reference, the second most popular shop sold 136 items. This shows that there is more demand for the shoe sold at shop 42.
+
