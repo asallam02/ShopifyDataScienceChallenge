@@ -1,5 +1,5 @@
 # ShopifyDataScienceChallenge
-submission for the data science challenge for shopify
+submission for the data science challenge for shopify by Ammar Sallam
 
 # Q1
 Since the AOV does not account for the amount of items purchased in each order
